@@ -1,15 +1,18 @@
 package com.jorgetranin.amazonia_filmes_app.presentation.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jorgetranin.amazonia_filmes_app.data.Movie
 import com.jorgetranin.amazonia_filmes_app.databinding.ActivityMainBinding
 import com.jorgetranin.amazonia_filmes_app.presentation.ui.adapter.MovieAdapter
+import com.jorgetranin.amazonia_filmes_app.presentation.viewmodel.MovieViewModel
 
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel: MovieViewModel by viewModels()
+
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: MovieAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,31 +20,25 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(LayoutInflater.from(this))
         setContentView(binding.root)
 
-        val list = arrayListOf(
-            Movie(
-                id = 1,
-                titulo = "jorge",
-                descricao = null,
-                imagem = null,
-                dataDeLancamento = "oooi"
-            ), Movie(
-                id = 1,
-                titulo = "Pedro",
-                descricao = null,
-                imagem = null,
-                dataDeLancamento = "oooi"
-            )
 
-        )
-        adapter = MovieAdapter(list)
+        loadMovies()
 
         //Aplica e inicia o adapter
-        binding.rvMovies.setHasFixedSize(true)
-        binding.rvMovies.setLayoutManager(LinearLayoutManager(this@MainActivity))
-        binding.rvMovies.adapter = adapter
 
 
 
 
+
+
+    }
+    private fun loadMovies() {
+        //set de um layout para minha recycler view
+
+        viewModel.init().observe(this) { movies ->
+            //passa para meu adapter a lista a ser consumida
+            binding.rvMovies.setHasFixedSize(true)
+            binding.rvMovies.setLayoutManager(LinearLayoutManager(this@MainActivity))
+            binding.rvMovies.adapter = adapter
+        }
     }
 }
