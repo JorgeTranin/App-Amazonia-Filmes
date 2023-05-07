@@ -22,24 +22,31 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         viewModel = ViewModelProvider.NewInstanceFactory().create(MovieViewModel::class.java)
-        viewModel.init()
+
 
         initiObserver()
 
 
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.init()
+
+
+    }
+
     private fun initiObserver() {
-        viewModel.listMovies.observe(this, { listMovie ->
+        viewModel.listMovies.observe(this) { listMovie ->
             loadMovies(listMovie)
-        })
+        }
     }
 
     private fun loadMovies(listMovie: List<Movie>) {
         //set de um layout para minha recycler view
 
         binding.rvMovies.setHasFixedSize(true)
-        binding.rvMovies.setLayoutManager(LinearLayoutManager(this@MainActivity))
+        binding.rvMovies.layoutManager = LinearLayoutManager(this@MainActivity)
 
         //passa para meu adapter a lista a ser consumida
         adapter = MovieAdapter(listMovie)

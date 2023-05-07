@@ -4,60 +4,47 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.jorgetranin.amazonia_filmes_app.data.Movie
 import com.jorgetranin.amazonia_filmes_app.data.api.MovieRestApiTesk
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import com.jorgetranin.amazonia_filmes_app.repository.MovieRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+
 
 class MovieViewModel : ViewModel() {
+
+    private val movieRestApiTesk = MovieRestApiTesk
+    private val movieRepository = MovieRepository(movieRestApiTesk)
 
     private var _listMovies = MutableLiveData<List<Movie>>()
     val listMovies: MutableLiveData<List<Movie>>
         get() = _listMovies
 
     fun init() {
-        this.getAllMovies()
+        CoroutineScope(Dispatchers.IO).launch {
+
+            val result = getAllMovies()
+
+            withContext(Dispatchers.Main) {
+                return@withContext result
+            }
+        }
+
     }
 
 
-    fun getAllMovies() {
+    suspend fun getAllMovies() {
+        CoroutineScope(Dispatchers.IO).launch {
 
-        MovieRestApiTesk.service.getAllMovie().enqueue(object : Callback<List<Movie>> {
-            override fun onResponse(
-                call: Call<List<Movie>>,
-                response: Response<List<Movie>>
-            ) {
-                if (response.isSuccessful) {
-                    val movies: MutableList<Movie> = mutableListOf()
-                    response.body()?.let { movieBodyResponse ->
-                        _listMovies.value = movieBodyResponse
+            val result = movieRepository.getAllMovies()
 
-                        for (result in movieBodyResponse) {
-                            val movie = Movie(
-                                id = result.id,
-                                titulo = result.titulo,
-                                descricao = result.descricao,
-                                imagem = result.imagem,
-                                dataDeLancamento = result.dataDeLancamento,
+            withContext(Dispatchers.Main) {
 
-
-                                )
-                            movies.add(movie)
-                        }
-
-
-                    }
-                    // mesma coisa de passar os dados fakes, porem desta forma é adicionado os resultados vindos da api
-                    _listMovies.value = movies
-                }
+                _listMovies.postValue(result)
             }
-
-            override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-
-
-        })
-
+        }
 
     }
+
+
 }
