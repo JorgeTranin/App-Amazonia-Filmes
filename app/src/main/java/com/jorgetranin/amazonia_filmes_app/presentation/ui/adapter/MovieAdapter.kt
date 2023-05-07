@@ -8,7 +8,6 @@ import com.bumptech.glide.Glide
 import com.jorgetranin.amazonia_filmes_app.R
 import com.jorgetranin.amazonia_filmes_app.data.Movie
 import com.jorgetranin.amazonia_filmes_app.databinding.ItemMovieBinding
-import java.net.URI
 
 
 class MovieAdapter(private val moviesList:List<Movie>) : RecyclerView.Adapter<MovieAdapter.MoviesViewHolder>() {
@@ -36,7 +35,7 @@ class MovieAdapter(private val moviesList:List<Movie>) : RecyclerView.Adapter<Mo
             binding.tvDescripitionFilme.text = item.descricao
             binding.tvDataLancamento.text = item.dataDeLancamento
 
-            Glide.with(context).load(url).centerCrop().placeholder(R.drawable.insert_photo).into(binding.ivMovie);
+            Glide.with(context).load(url).centerCrop().placeholder(R.drawable.insert_photo).into(binding.ivMovie)
 
 
             // Bind other views as necessary
