@@ -2,8 +2,8 @@ package com.jorgetranin.amazonia_filmes_app.presentation.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.jorgetranin.amazonia_filmes_app.data.Movie
 import com.jorgetranin.amazonia_filmes_app.data.api.MovieRestApiTesk
+import com.jorgetranin.amazonia_filmes_app.data.domain.Movie
 import com.jorgetranin.amazonia_filmes_app.repository.MovieRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

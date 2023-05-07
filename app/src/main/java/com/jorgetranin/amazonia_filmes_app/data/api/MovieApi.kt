@@ -1,6 +1,6 @@
 package com.jorgetranin.amazonia_filmes_app.data.api
 
-import com.jorgetranin.amazonia_filmes_app.data.Movie
+import com.jorgetranin.amazonia_filmes_app.data.domain.Movie
 import retrofit2.Call
 import retrofit2.http.GET
 

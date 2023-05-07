@@ -2,8 +2,8 @@ package com.jorgetranin.amazonia_filmes_app.repository
 
 import android.content.ContentValues.TAG
 import android.util.Log
-import com.jorgetranin.amazonia_filmes_app.data.Movie
 import com.jorgetranin.amazonia_filmes_app.data.api.MovieRestApiTesk
+import com.jorgetranin.amazonia_filmes_app.data.domain.Movie
 
 class MovieRepository(private val movieRestApiTesk: MovieRestApiTesk) {
 

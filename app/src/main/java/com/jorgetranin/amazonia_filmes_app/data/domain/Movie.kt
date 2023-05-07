@@ -1,4 +1,4 @@
-package com.jorgetranin.amazonia_filmes_app.data
+package com.jorgetranin.amazonia_filmes_app.data.domain
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

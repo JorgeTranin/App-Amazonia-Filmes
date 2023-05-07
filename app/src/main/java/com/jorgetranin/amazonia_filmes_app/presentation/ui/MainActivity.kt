@@ -2,10 +2,11 @@ package com.jorgetranin.amazonia_filmes_app.presentation.ui
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.jorgetranin.amazonia_filmes_app.data.Movie
+import com.jorgetranin.amazonia_filmes_app.data.domain.Movie
 import com.jorgetranin.amazonia_filmes_app.databinding.ActivityMainBinding
 import com.jorgetranin.amazonia_filmes_app.presentation.ui.adapter.MovieAdapter
 import com.jorgetranin.amazonia_filmes_app.presentation.viewmodel.MovieViewModel
@@ -32,13 +33,19 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         viewModel.init()
-
+        loadVisibility(true)
 
     }
 
     private fun initiObserver() {
         viewModel.listMovies.observe(this) { listMovie ->
-            loadMovies(listMovie)
+            if (listMovie.isNotEmpty()) {
+                loadVisibility(false)
+                loadMovies(listMovie)
+
+            }
+
+
         }
     }
 
@@ -52,5 +59,10 @@ class MainActivity : AppCompatActivity() {
         adapter = MovieAdapter(listMovie)
         binding.rvMovies.adapter = adapter
 
+    }
+
+    private fun loadVisibility(isLoading: Boolean) {
+
+        binding.pbLoadMovies.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

@@ -10,7 +10,7 @@ Bootcamp Santander da DIO.
 
 ## Screenshots
 
-<img src="/screeshots/Screenshot_Main.png" width=25%> <img src="/screeshots/Screenshot_cadastro.png" width=25%> <img src="/screeshots/Screenshot_tela_cadastro_pick_color.png" width=25%> <img src="/screeshots/Screenshot_compartilhar_card.png" width=25%>
+<img src="/screeshots/Screenshot_Tela Principal.png" width=25%> 
 
 ## Tecnologias utilizadas
 
@@ -24,6 +24,7 @@ O aplicativo foi desenvolvido utilizando as seguintes tecnologias:
 - Android JetPack
 - Material Designer 3
 - RecyclerView + adapter
+-
 
 ## Instalação
 
